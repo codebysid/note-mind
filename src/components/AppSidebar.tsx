@@ -1,4 +1,3 @@
-import { getUserData } from "@/app/actions/login"
 import {
     Sidebar,
     SidebarContent,
@@ -8,11 +7,9 @@ import {
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Plus } from "lucide-react"
 import AddNotes from "./AddNotes"
 
 const AppSidebar = async () => {
