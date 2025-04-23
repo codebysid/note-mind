@@ -11,10 +11,11 @@ import { Check, EllipsisVertical, Pencil, Trash } from "lucide-react"
 interface INoteCardDropDownOptions {
     setEditNote: any,
     handleUpdateNoteIsComplete: any,
-    isCompleted: boolean
+    isCompleted: boolean,
+    handleDeleteNote: any
 }
 
-const NoteCardDropDownMenu = ({ setEditNote, handleUpdateNoteIsComplete, isCompleted }: INoteCardDropDownOptions) => {
+const NoteCardDropDownMenu = ({ setEditNote, handleUpdateNoteIsComplete, isCompleted, handleDeleteNote }: INoteCardDropDownOptions) => {
     const noteCardOtions = [
         {
             id: 1,
@@ -37,7 +38,7 @@ const NoteCardDropDownMenu = ({ setEditNote, handleUpdateNoteIsComplete, isCompl
         {
             id: 4,
             title: "Delete Note",
-            action: "",
+            action: handleDeleteNote,
             icon: <Trash />
         },
     ]

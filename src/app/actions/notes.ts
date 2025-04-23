@@ -5,17 +5,16 @@ import { getUserData } from "./login"
 import { revalidatePath } from "next/cache"
 
 export async function addNotes(formData: FormData) {
-    console.log("adding notes...")
     const title = formData.get('note')?.toString()
     if (!title) {
         console.log(`title is not provided: ${title}`)
-        return
+        return "No note content found"
     }
     const userData = JSON.parse(await getUserData())
     if (userData.code !== 200) {
         console.log(`could not fetch user data: ${userData}`)
 
-        return
+        return "could not fetch user data"
     }
     try {
         const supabase = await createClientServer()
@@ -27,9 +26,10 @@ export async function addNotes(formData: FormData) {
             }
         ])
         console.log({ data })
-        revalidatePath("/")
+        return "Note added"
     } catch (err) {
         console.log(err)
+        return "Could not add note"
     }
 
 }
@@ -62,7 +62,7 @@ export async function getNotes() {
 
 export async function updateNote(dataObjToUpdate: any, noteId: number) {
 
-    if (!noteId || !dataObjToUpdate) return
+    if (!noteId || !dataObjToUpdate) return "Could not update the note"
     try {
 
         const user = JSON.parse(await getUserData())
@@ -75,10 +75,32 @@ export async function updateNote(dataObjToUpdate: any, noteId: number) {
             .eq("user_id", user.data.id)
         if (error) {
             console.log("Update failed:", error.message)
-            return
+            return "Could not update the note"
         }
-        revalidatePath("/")
+        return "Note updated"
     } catch (err) {
         console.log(err)
+        return "Could not update the note"
     }
+}
+
+export async function deleteNote(noteId: number) {
+    const supabase = await createClientServer()
+    const user = JSON.parse(await getUserData())
+
+    if (!user) {
+        return "Could not find user"
+    }
+
+    const { error } = await supabase
+        .from("notes")
+        .delete()
+        .eq("id", noteId)
+        .eq("user_id", user.data.id)
+
+    if (error) {
+        console.error(error)
+        return "Could not delete the note"
+    }
+    return "Note deleted"
 }
