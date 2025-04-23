@@ -68,7 +68,7 @@ const noteCard = ({ isCompleted, title, index, createdAt, noteId }: Inotecard) =
 
                 </div>
             </div>
-            <Textarea value={updatednote.title} onChange={handlenoteUpdate} className=" break-words p-2 max-h-60  overflow-y-scroll" disabled={editnote} />
+            <Textarea value={updatednote.title} onChange={handlenoteUpdate} className={` break-words p-2 h-40 resize-none`} disabled={editnote} />
         </div>
     )
 }
