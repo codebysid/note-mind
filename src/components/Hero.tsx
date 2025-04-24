@@ -1,5 +1,8 @@
+"use client"
+import { Suspense } from "react";
 import AuthForm from "./AuthForm";
 import Logo from "./Logo";
+import { Loader } from "lucide-react";
 
 const Hero = () => {
     return (
@@ -11,7 +14,9 @@ const Hero = () => {
                 <p className=" text-white/50 text-sm/4 w-1/2
                 ">AI to summazrize your note strucutre, grammar and quality to boosts productivity</p>
             </div>
-            <AuthForm />
+            <Suspense fallback={<Loader />}>
+                <AuthForm />
+            </Suspense>
         </div>
     )
 }
