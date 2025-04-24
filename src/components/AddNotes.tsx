@@ -4,14 +4,19 @@ import { SidebarMenuButton } from "./ui/sidebar"
 import { Textarea } from "./ui/textarea"
 import { addNotes } from "@/app/actions/notes"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { runDeepSeek, runMistral } from "@/app/actions/ai"
+import { runMistral } from "@/app/actions/ai"
+import { ChangeEvent, useState } from "react"
+import { toast } from "sonner"
 
 const AddNotes = () => {
+    const [note, setNote] = useState<string>()
     const queryClient = useQueryClient()
+
     const { mutateAsync: addNotesAsync, isLoading } = useMutation({
         mutationFn: addNotes,
         onSuccess: () => {
             queryClient.invalidateQueries(["notes"])
+            setNote("")
         }
     })
 
@@ -20,28 +25,35 @@ const AddNotes = () => {
         mutationKey: ["summarize ai"],
     })
 
-    const handleDeepSeekMutation = async (formData: FormData) => {
+    const handleLLMMutation = async (formData: FormData) => {
         const content = formData.get("note")?.toString()
         console.log({ content })
         if (!content) return
         const res = await runMistralAsync(content)
         console.log({ res })
+        if (!res) return
+        setNote(res as string)
+    }
+
+    const handleNoteChange = (e: ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)
+
+    const handleAddNotesMutation = async (formData: FormData) => {
+        const res = await addNotesAsync(formData)
+        toast.success(res)
     }
 
     return (
         <div>
             <form>
-                <Textarea name="note" placeholder="write your note..." className="h-60 resize-none" disabled={isLoading || isDeepSeekLoading} />
+                <Textarea name="note" value={note} onChange={handleNoteChange} placeholder="write your note..." className="h-60 resize-none" disabled={isLoading || isDeepSeekLoading} />
                 <div className=" flex flex-row items-center pt-2">
-                    <SidebarMenuButton formAction={async (formData) => {
-                        await addNotesAsync(formData)
-                    }} className=" w-max pr-10" disabled={isLoading || isDeepSeekLoading}>
+                    <SidebarMenuButton formAction={handleAddNotesMutation} className=" w-max pr-10" disabled={isLoading || isDeepSeekLoading}>
                         {
                             isLoading ? <Loader /> : <Plus />
                         }
                         Add
                     </SidebarMenuButton>
-                    <SidebarMenuButton formAction={handleDeepSeekMutation} disabled={isDeepSeekLoading || isLoading}>
+                    <SidebarMenuButton formAction={handleLLMMutation} disabled={isDeepSeekLoading || isLoading}>
                         <Bot /> Summarize with AI
                     </SidebarMenuButton>
                 </div>

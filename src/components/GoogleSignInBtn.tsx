@@ -5,7 +5,7 @@ const GoogleSignInBtn = () => {
 
     return (
         <form action={handleGoogleSignIn}>
-            <Button>Signin with Google</Button>
+            <Button size={"sm"} className=" text-white w-full">Signin with Google</Button>
         </form>
     )
 }

@@ -8,13 +8,13 @@ export async function addNotes(formData: FormData) {
     const title = formData.get('note')?.toString()
     if (!title) {
         console.log(`title is not provided: ${title}`)
-        return "No note content found"
+        return "No note found"
     }
     const userData = JSON.parse(await getUserData())
     if (userData.code !== 200) {
         console.log(`could not fetch user data: ${userData}`)
 
-        return "could not fetch user data"
+        return "Could not fetch user data"
     }
     try {
         const supabase = await createClientServer()
@@ -29,7 +29,7 @@ export async function addNotes(formData: FormData) {
         return "Note added"
     } catch (err) {
         console.log(err)
-        return "Could not add note"
+        return "Could not add note, try later"
     }
 
 }
@@ -89,7 +89,7 @@ export async function deleteNote(noteId: number) {
     const user = JSON.parse(await getUserData())
 
     if (!user) {
-        return "Could not find user"
+        return "Could not find user data"
     }
 
     const { error } = await supabase
@@ -100,7 +100,7 @@ export async function deleteNote(noteId: number) {
 
     if (error) {
         console.error(error)
-        return "Could not delete the note"
+        return "Note not deleted, try later"
     }
     return "Note deleted"
 }

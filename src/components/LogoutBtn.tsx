@@ -4,7 +4,7 @@ import { Button } from "./ui/button"
 const LogoutBtn = () => {
     return (
         <form action={handleLogout}>
-            <Button>
+            <Button variant="ghost" className=" text-red-500 hover:bg-transparent hover:text-red-700">
                 Logout
             </Button>
         </form>

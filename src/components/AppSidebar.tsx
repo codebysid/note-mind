@@ -8,18 +8,15 @@ import {
     SidebarHeader,
     SidebarMenu,
     SidebarMenuItem,
-    SidebarTrigger,
 } from "@/components/ui/sidebar"
 import AddNotes from "./AddNotes"
+import LogoutBtn from "./LogoutBtn"
 
 const AppSidebar = async () => {
-    // const data = await getUserData()
-    // console.log({ data })
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className=" flex flex-row justify-between items-center">
                 <h2>Note Mind</h2>
-                <SidebarTrigger />
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup >
@@ -35,7 +32,15 @@ const AppSidebar = async () => {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter />
+            <SidebarFooter>
+                <SidebarContent>
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <LogoutBtn />
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarContent>
+            </SidebarFooter>
         </Sidebar>
     )
 }

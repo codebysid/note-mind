@@ -41,6 +41,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --font-figtree:var(--font-figtree);
+  --font-spacemono:var(--font-spacemono);
 }
 
 :root {
@@ -136,4 +139,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
+
+button{
+  cursor:pointer;
+}
+}
+@layer components{
+  .heading2{
+    @apply text-3xl font-spacemono underline decoration-2 decoration-wavy underline-offset-4 text-center
+  }
 }

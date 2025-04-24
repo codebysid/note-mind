@@ -7,16 +7,16 @@ import { ChangeEvent, useState } from "react"
 import { deleteNote, updateNote } from "@/app/actions/notes"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Loader } from "lucide-react"
+import { toast } from "sonner"
 
 interface Inotecard {
     title: string,
     isCompleted: boolean
-    index: number,
     createdAt: string,
     noteId: number
 }
 
-const noteCard = ({ isCompleted, title, index, createdAt, noteId }: Inotecard) => {
+const noteCard = ({ isCompleted, title, createdAt, noteId }: Inotecard) => {
     const [updatednote, setUpdatednote] = useState<{ title: string }>({ title })
     const [editnote, setEditnote] = useState<boolean>(true)
     const queryClient = useQueryClient()
@@ -42,20 +42,26 @@ const noteCard = ({ isCompleted, title, index, createdAt, noteId }: Inotecard) =
     const handleEditNote = () => setEditnote(prev => !prev)
 
     const handleUpdateNoteTitle = async () => {
-        await updateNotesAsync({ updatednote, noteId })
+        const res = await updateNotesAsync({ updatednote, noteId })
         handleEditNote()
+        toast.success(res)
     }
 
     const handleUpdateNoteIsComplete = async () => {
-        await updateNotesAsync({ updatednote: { is_completed: true }, noteId })
+        const res = await updateNotesAsync({ updatednote: { is_completed: true }, noteId })
+        toast.success(res)
+
     }
-    const handleDeleteNote = () => deleteNotesAsync({ noteId })
+    const handleDeleteNote = async () => {
+        const res = await deleteNotesAsync({ noteId })
+        toast.success(res)
+
+    }
 
     return (
-        <div className="w-1/4">
-            <div className="flex flex-row justify-between px-3  py-1">
-                <span>{index}</span>
-                <div className=" flex gap-2">
+        <div className="min-w-40 max-w-40 lg:min-w-60 lg:max-w-60">
+            <div className="flex flex-row justify-between px-3 py-1">
+                <div className=" flex w-full justify-between gap-2">
                     <span>{formatDate(createdAt)}</span>
                     {(isLoading || isDeleteMutationLoading) && <Loader />}
                     {

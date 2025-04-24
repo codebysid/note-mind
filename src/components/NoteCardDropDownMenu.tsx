@@ -52,8 +52,8 @@ const NoteCardDropDownMenu = ({ setEditNote, handleUpdateNoteIsComplete, isCompl
                     noteCardOtions.map(({ id, title, action, icon }) => {
                         if (isCompleted && id == 1) return
                         if (!isCompleted && id == 2) return
-
-                        return <DropdownMenuItem key={id} onClick={action} className={`${id == 2 && ' text-green-500'}`}>
+                        if (isCompleted && id == 3) return
+                        return <DropdownMenuItem key={id} onClick={action || null} className={`${id == 2 && ' text-green-500'}`}>
                             {icon}
                             {title}
                         </DropdownMenuItem>

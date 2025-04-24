@@ -10,10 +10,10 @@ const DisplayNotes = () => {
         queryKey: ["notes"]
     })
     return (
-        <div className=" pl-72 pt-10 flex flex-row flex-wrap w-full gap-10">
+        <div className="lg:pl-80 py-10 flex flex-row flex-wrap w-full gap-5 lg:gap-10 justify-start pl-4 lg:px-0">
             {isLoading && <Loader />}
             {
-                data && data?.map(({ id, title, is_completed, created_at }, index) => <NoteCard key={id} isCompleted={is_completed} title={title} index={index + 1} createdAt={created_at} noteId={id} />)
+                data && data?.map(({ id, title, is_completed, created_at }) => <NoteCard key={id} isCompleted={is_completed} title={title} createdAt={created_at} noteId={id} />)
             }
         </div>
     )

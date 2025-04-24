@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Figtree, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
+import { Toaster } from "@/components/ui/sonner"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const spaceMono = Space_Mono({
+  variable: "--font-spacemono",
+  weight: ["400", "700"],
+  display: "swap",
+  subsets: ['latin']
 });
 
 export const metadata: Metadata = {
@@ -28,11 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+        className={`${figtree.variable} ${spaceMono.variable} antialiased dark`}
       >
         <ReactQueryClientProvider>
           <SidebarProvider>
             {children}
+            <Toaster />
           </SidebarProvider>
         </ReactQueryClientProvider>
       </body>
