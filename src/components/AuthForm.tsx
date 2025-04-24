@@ -17,13 +17,13 @@ const AuthForm = () => {
         }
     }, [])
     return (
-        <div className="w-[35%] space-y-5 p-8 rounded-2xl border-2">
+        <div className="w-full lg:w-[35%] space-y-5 p-6 lg:p-8 rounded-2xl border-2">
             <form className="w-full space-y-5 text-xs">
                 <label htmlFor="email">Email:</label>
                 <Input id="email" name="email" type="email" required />
                 <label htmlFor="password">Password:</label>
                 <Input id="password" name="password" type="password" required />
-                <div className=" flex flex-row gap-4 w-full">
+                <div className=" flex flex-col lg:flex-row gap-4 w-full">
                     <Button formAction={emailLogin} variant="outline" className=" flex-1">Log in [Existing Account]</Button>
                     <Button formAction={signup} variant="outline" className=" flex-1">Sign up [First Time]</Button>
                 </div>

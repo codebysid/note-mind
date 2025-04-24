@@ -9,7 +9,7 @@ export default function page() {
             <Hero />
             <Features />
             <HowToUse />
-            <div className=" w-full px-20">
+            <div className=" w-full px-6 lg:px-20">
                 <Footer />
             </div>
         </div>

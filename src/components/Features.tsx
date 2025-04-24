@@ -37,7 +37,7 @@ const Features = () => {
     return (
         <div className=" text-center space-y-10">
             <h2 className="heading2">Features</h2>
-            <div className=" flex flex-row flex-wrap items-center justify-center gap-12">
+            <div className=" flex flex-col lg:flex-row flex-wrap items-center justify-center gap-6 lg:gap-12 px-10 lg:px-0">
 
                 {
                     features.map(({ id, title, description }) => {
